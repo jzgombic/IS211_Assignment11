@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>To Do List</title>
+</head>
+<body>
+	<h2>To Do List</h2>
+    <form action="/submit" method="post">
+        Task: <input type="text" name="task" placeholder="Enter Task Name" >
+        <br><br>
+        Email: <input type="text" name="email" placeholder="Enter E-Mail" >
+        <br><br>
+        Priority: <select name="priority" style="width: 150px;">
+            <option value="Select Priority">Select Priority</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
+        <br><br>
+        <input type="submit" value="Add to List">
+      </form> 
+
+      <br>
+
+
+<table style="width: 50%; border: 1px solid black;">
+    <tr>
+        <th>Task</th>
+        <th>E-Mail</th>
+        <th>Priority</th>
+        <th>Action</th>
+    </tr>
+    {% for t in todo %}
+    <tr>
+        <td>
+            {{t[0]}}
+        </td>
+        <td>
+            {{t[1]}}
+        </td>
+        <td>
+            {{t[2]}}
+        </td>
+        <td>
+            <form method="post" action="/delete">
+                <input type="submit" name="delete" value ="Delete Item"/>
+                <input type="hidden" name="deleteId" value="{{ loop.index }}" />
+            </form>    
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<br>
+<form action="/clear" method="post">
+    <input type="submit" value="Clear List">
+</form>
+
+</body>
+</html>
+
+<style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #c9d8d1;
+      text-align: left;
+      padding: 8px;
+    }
+</style>
